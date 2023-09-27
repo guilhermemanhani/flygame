@@ -25,7 +25,7 @@ class PlayerComponent extends SpriteAnimationComponent
     add(CircleHitbox());
     add(
       bulletCreator = TimerComponent(
-        period: 0.1,
+        period: 0.09,
         repeat: true,
         autoStart: false,
         onTick: _createBullet,
@@ -42,11 +42,7 @@ class PlayerComponent extends SpriteAnimationComponent
   }
 
   final bulletAngles = [
-    0.5,
-    0.3,
     0.0,
-    -0.5,
-    -0.3,
   ];
   void _createBullet() {
     gameRef.addAll(

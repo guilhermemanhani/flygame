@@ -15,6 +15,9 @@ class RogueShooterGame extends FlameGame
   late final PlayerComponent player;
   late final TextComponent componentCounter;
   late final TextComponent scoreText;
+  bool nivel1 = false;
+  bool nivel2 = false;
+  bool nivel3 = false;
 
   int score = 0;
 
@@ -71,5 +74,17 @@ class RogueShooterGame extends FlameGame
 
   void increaseScore() {
     score++;
+    if (score > 10 && nivel1 == false) {
+      player.bulletAngles.addAll([0.1, -0.1]);
+      nivel1 = true;
+    }
+    if (score > 20 && nivel2 == false) {
+      player.bulletAngles.addAll([0.2, -0.2]);
+      nivel2 = true;
+    }
+    if (score > 30 && nivel3 == false) {
+      player.bulletAngles.addAll([0.3, -0.3]);
+      nivel3 = true;
+    }
   }
 }
