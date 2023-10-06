@@ -1,11 +1,14 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:run/components/bullet_component.dart';
 import 'package:run/components/explosion_component.dart';
 import 'package:run/rogue_shooter_game.dart';
 
 class EnemyComponent extends SpriteAnimationComponent
     with HasGameRef<RogueShooterGame>, CollisionCallbacks {
+  late TimerComponent bulletCreator;
   static const speed = 150;
+  int live = 10;
   static Vector2 initialSize = Vector2.all(25);
 
   EnemyComponent({required super.position})
@@ -21,7 +24,30 @@ class EnemyComponent extends SpriteAnimationComponent
         textureSize: Vector2.all(16),
       ),
     );
+    add(
+      bulletCreator = TimerComponent(
+        period: 0.5,
+        repeat: true,
+        autoStart: true,
+        onTick: _createBullet,
+      ),
+    );
     add(CircleHitbox()..collisionType = CollisionType.passive);
+  }
+
+  final bulletAngles = [
+    0.0,
+  ];
+  void _createBullet() {
+    gameRef.addAll(
+      bulletAngles.map(
+        (angle) => BulletComponent(
+          position: position + Vector2(0, size.y / 2),
+          angle: angle,
+          speedCo: -300.0,
+        ),
+      ),
+    );
   }
 
   @override
@@ -35,8 +61,10 @@ class EnemyComponent extends SpriteAnimationComponent
 
   void takeHit() {
     removeFromParent();
-
+    // live--;
+    // if (live <= 0) {
     gameRef.add(ExplosionComponent(position: position));
     gameRef.increaseScore();
+    // }
   }
 }

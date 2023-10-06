@@ -7,7 +7,11 @@ class EnemyCreator extends TimerComponent with HasGameRef {
   final Random random = Random();
   final _halfWidth = EnemyComponent.initialSize.x / 2;
 
-  EnemyCreator() : super(period: 0.5, repeat: true);
+  EnemyCreator()
+      : super(
+          period: 0.8,
+          repeat: true,
+        );
 
   @override
   void onTick() {

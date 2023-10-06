@@ -50,6 +50,7 @@ class PlayerComponent extends SpriteAnimationComponent
         (angle) => BulletComponent(
           position: position + Vector2(0, -size.y / 2),
           angle: angle,
+          speedCo: 500.0,
         ),
       ),
     );
